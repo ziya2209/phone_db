@@ -23,7 +23,6 @@ func (s dbResetter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func ResetDatabase(d repo.Dao) http.Handler {
-
 	return dbResetter{d: d}
 }
 func AddPhoneNumber(d repo.Dao) http.HandlerFunc {
