@@ -1,0 +1,9 @@
+server:
+  port: 8080
+database:
+  host: localhost
+  port: 5432
+  username: kaddu
+  password: karela
+  dbname: phone_db
+  driver: postgres

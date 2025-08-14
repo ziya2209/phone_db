@@ -1,2 +1,4 @@
-# phone_db
-A web service to Normalise phone number and store in RDBMS
+### Creating go module:
+cmd:
+`go mod init github.com/zia2209/goproject/phonedb`
+

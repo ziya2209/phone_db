@@ -1,0 +1,47 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phonedb-clone-app
+    # image: phonedb-image:v1
+    ports:
+      - "2000:2000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - APP_PORT=2000
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=testdb
+    
+    volumes:
+      - .:/app
+    restart: always
+    
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "--password=password" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: 
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+    driver: local
